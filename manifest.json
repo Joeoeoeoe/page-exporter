@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "DeepSeek Exporter",
+  "name": "Page Exporter",
   "version": "1.0",
   "permissions": [ "activeTab", "storage" ],
   "background": {
