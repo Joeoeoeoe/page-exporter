@@ -37,7 +37,7 @@
 
   - 拷贝：弹出文本框，按需复制
 
-![image1](https://github.com/Joeoeoeoe/page-exporter/tree/main/screenshots/1.png)
+![image1](https://github.com/Joeoeoeoe/page-exporter/raw/main/screenshots/1.png)
 
 ### 高级配置
 
@@ -76,7 +76,7 @@
 | 模型回答 | .answer-box .markdown | 全版本 |
 
 
-![image2](https://github.com/Joeoeoeoe/page-exporter/tree/main/screenshots/2.png)
+![image2](https://github.com/Joeoeoeoe/page-exporter/raw/main/screenshots/2.png)
 
 
 
