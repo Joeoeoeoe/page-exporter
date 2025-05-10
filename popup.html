@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>AI Exporter</title>
+    <style>
+        body{
+            margin: 0;
+            padding: 5px;
+            background-color: #dbeafe;
+        }
+
+        .container {
+            width: 200px;
+            display: flex;
+            flex-direction: column;
+            background-color: #dbeafe;
+        }
+
+        /* 给 label 元素设置 flex 布局 */
+        label {
+            font-size: 16px;
+            color: #4d6bfe;
+            white-space: nowrap;
+        }
+
+        .div_border {
+            display: flex;
+            align-items: center;  /* 垂直居中内容 */
+            /*left: 50%;*/
+            border: 1px solid black;
+            border-radius: 5px;
+            padding: 10px;
+            background-color: #dbeafe;
+        }
+
+        input[type="checkbox"] {
+            position: relative;
+            width: 40px;
+            height: 20px;
+            -webkit-appearance: none;
+            background: #c6c6c6;
+            outline: none;
+            cursor: pointer;
+            border-radius: 20px;
+            box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+            transition: background 100ms linear;
+            vertical-align: middle;
+        }
+
+        input:checked[type="checkbox"] {
+            background: #03a9f4;
+        }
+
+        input[type="checkbox"]::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 20px;
+            height: 20px;
+            border-radius: 20px;
+            background: #fff;
+            box-shadow:  0 2px 5px rgba(0,0,0,0.2);
+            transition: left 100ms linear;
+            transform: scale(1.1);
+        }
+
+        input:checked[type="checkbox"]::before {
+            left: 20px;
+        }
+
+        select{
+            background-color: #dbeafe;
+            margin: 0;
+            padding: 0;
+            font-size: 16px;
+        }
+
+        /* 鼠标悬停时放大 */
+        .svg_container {
+            margin: 4px;
+            transition: transform 0.2s ease;
+        }
+        .svg_container svg{
+            float: right;
+            width: 25px;
+            height: 25px;
+            cursor: pointer;
+        }
+        .svg_container svg:hover{
+            transform: scale(1.1); /* 放大 1.1 倍 */
+        }
+        svg {
+            /* 平滑过渡动画 */
+            transition: transform 0.2s ease;
+        }
+
+
+        .hidden {
+            display: none;
+        }
+        .visible {
+            /*display: block;*/
+            display: flex;
+            animation: fadeIn 0.5s;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        #other_configs{
+            flex-direction: column;
+            border: 1px solid black;
+            border-radius: 5px;
+            padding: 10px;
+            .center label{
+                color: #0b44a1;
+                font-size: 18px;
+            }
+            label{
+                margin-bottom: 8px;
+            }
+            input {
+                width: 60%;
+            }
+        }
+        .center{
+            display: flex;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="div_border">
+        <label>
+            <input type="checkbox" name="" id="checkbox-rounds"/>
+            导出对话轮次
+        </label>
+    </div>
+    <div class="div_border">
+        <label>
+            <input type="checkbox" name="" id="checkbox-questions"/>
+            仅导出问题
+        </label>
+    </div>
+    <div class="div_border">
+        <label>
+            <input type="checkbox" name="" id="checkbox-thinks"/>
+            仅导出深度思考
+        </label>
+    </div>
+    <div class="div_border">
+        <label>
+            <input type="checkbox" name="" id="checkbox-answers"/>
+            仅导出回答
+        </label>
+    </div>
+    <div class="div_border">
+        <label>
+            选择下载格式
+            <select id="format-selection">
+                <option value=".md">.md</option>
+                <option value=".docx">.docx</option>
+                <option value=".html">.html</option>
+                <option value=".txt">.txt</option>
+            </select>
+        </label>
+    </div>
+
+    <hr>
+
+    <div class="svg_container">
+        <div id="toggle_configs">
+            <svg id="svg_add" class="visible" t="1746847130066" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5472">
+                <path d="M460.8 716.8h102.4V563.2h153.6V460.8H563.2V307.2H460.8v153.6H307.2v102.4h153.6z" fill="#707070" p-id="5473"></path>
+                <path d="M0 0v1024h1024V0H0z m921.6 921.6H102.4V102.4h819.2v819.2z" fill="#707070" p-id="5474"></path>
+            </svg>
+
+            <svg id="svg_minus" class="hidden" t="1746850196921" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="9983" width="200" height="200">
+                <path d="M85.312 85.312v853.376h853.376V85.312H85.312zM0 0h1024v1024H0V0z m213.312 469.376h597.376v85.312H213.312V469.376z" fill="#707070" p-id="9984"></path>
+            </svg>
+        </div>
+    </div>
+
+    <div id="other_configs" class="hidden">
+        <div class="center">
+            <label>
+                css元素选择器：
+            </label>
+        </div>
+        <label>
+            对话标题
+            <input type="text" name="" id="text-title"/>
+        </label>
+        <label>
+            用户问题
+            <input type="text" name="" id="text-questions"/>
+        </label>
+        <label>
+            深度思考
+            <input type="text" name="" id="text-thinks"/>
+        </label>
+        <label>
+            模型回答
+            <input type="text" name="" id="text-answers"/>
+        </label>
+
+        <div class="svg_container">
+            <svg id="svg_reset" t="1746869808603" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="11080" width="200" height="200">
+                <path d="M502.714987 58.258904l-126.531056-54.617723a52.797131 52.797131 0 0 0-41.873587 96.855428A447.865322 447.865322 0 0 0 392.02307 946.707184a61.535967 61.535967 0 0 0 13.83649 1.820591 52.797131 52.797131 0 0 0 13.65443-103.773672 342.453118 342.453118 0 0 1-31.678278-651.771485l-8.374718 19.480321a52.615072 52.615072 0 0 0 27.855039 69.182448 51.522718 51.522718 0 0 0 20.572675 4.369418A52.797131 52.797131 0 0 0 476.498481 254.882703L530.205907 127.441352a52.979191 52.979191 0 0 0-27.49092-69.182448zM962.960326 509.765407A448.775617 448.775617 0 0 0 643.992829 68.090094a52.797131 52.797131 0 1 0-30.403866 101.042786A342.635177 342.635177 0 0 1 674.578753 801.059925a52.615072 52.615072 0 0 0-92.30395-50.612422l-71.913335 117.246043a52.433013 52.433013 0 0 0 17.295612 72.82363l117.063985 72.823629a52.797131 52.797131 0 1 0 54.617722-89.755123l-16.021198-10.013249A448.593558 448.593558 0 0 0 962.960326 509.765407z" fill="#707070" p-id="11081">
+                </path>
+            </svg>
+        </div>
+
+    </div>
+
+</div>
+<script src="popup.js"></script>
+
+</body>
+</html>

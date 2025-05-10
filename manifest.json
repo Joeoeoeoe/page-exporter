@@ -1,0 +1,23 @@
+{
+  "manifest_version": 3,
+  "name": "DeepSeek Exporter",
+  "version": "1.0",
+  "permissions": [ "activeTab", "storage" ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+//      "matches": ["https://chat.deepseek.com/*"],
+//      "matches": ["<all_urls>"],
+      "matches": ["http://*/*", "https://*/*"],
+      "js": ["content.js","libs/turndown.js","libs/html-docx.min.js", "libs/html-to-text.js"]
+    }
+  ],
+  "action": {
+    "default_icon": {
+      "128": "icon.png"
+    },
+    "default_popup": "popup.html"
+  }
+}
