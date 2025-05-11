@@ -134,6 +134,35 @@ function createButtons() {
     singleButton('拷贝', 'copy-chat', getCalculatedTop(6, '36px'), copy);
 }
 
+// 全局按钮的隐藏显示
+setInterval(async () => {
+    const toggleVisibility = (visible) => {
+        ['export-chat', 'copy-chat'].forEach(s => {
+            const button = document.getElementById(s);
+            if (!button) return;
+
+            // 显式设置 visibility 样式
+            button.style.visibility = visible ? "visible" : "hidden";
+        });
+    };
+
+    try {
+        // 使用 await 获取存储值
+        const result = await chrome.storage.local.get('visibility');
+        const shouldBeVisible = result.visibility !== false; // 默认可见
+
+        // 检查任一按钮的当前状态
+        const sampleButton = document.getElementById('export-chat');
+        const isCurrentlyVisible = sampleButton?.style.visibility !== "hidden";
+
+        // 只有当当前状态与期望状态不一致时才切换
+        if (shouldBeVisible !== isCurrentlyVisible) {
+            toggleVisibility(shouldBeVisible);
+        }
+    } catch (error) {
+        console.error("Error accessing chrome.storage:", error);
+    }
+}, 1000);
 
 
 

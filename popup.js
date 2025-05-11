@@ -1,4 +1,5 @@
 // document是popup.html
+
 document.getElementById("toggle_configs").addEventListener("click",(event)=>{
     console.log("svg点击",event)
     const div = document.getElementById("other_configs")
@@ -24,6 +25,27 @@ document.getElementById("toggle_configs").addEventListener("click",(event)=>{
         svg_minus.classList.add("hidden")
     }
 
+})
+
+document.getElementById("toggle_visibility").addEventListener("click",(event)=>{
+    const svg_invisible = document.getElementById("svg_invisible")
+    if(svg_invisible.classList.contains("visible")) {
+        svg_invisible.classList.remove("visible")
+        svg_invisible.classList.add("hidden")
+        const svg_visible = document.getElementById("svg_visible")
+        svg_visible.classList.remove("hidden")
+        svg_visible.classList.add("visible")
+
+        chrome.storage.local.set({ visibility: false });
+    } else if(svg_invisible.classList.contains("hidden")) {
+        svg_invisible.classList.remove("hidden")
+        svg_invisible.classList.add("visible")
+        const svg_visible = document.getElementById("svg_visible")
+        svg_visible.classList.remove("visible")
+        svg_visible.classList.add("hidden")
+
+        chrome.storage.local.set({ visibility: true });
+    }
 })
 
 document.getElementById("svg_reset").addEventListener("click", (event)=>{
